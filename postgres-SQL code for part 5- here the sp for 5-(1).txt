@@ -1,0 +1,294 @@
+a.
+
+CREATE TABLE roles (
+	id  SERIAL PRIMARY KEY   ,
+	name TEXT
+);
+
+CREATE TABLE sites (
+	id  SERIAL PRIMARY KEY   ,
+	name TEXT,
+	Address TEXT
+);
+
+
+CREATE TABLE workers (
+	id  SERIAL PRIMARY KEY   ,
+	name TEXT,
+	phone TEXT,
+	salary INT,
+	roles_id bigint ,
+	site_id bigint,
+    FOREIGN KEY (roles_id) REFERENCES roles(id),
+    FOREIGN KEY (site_id) REFERENCES sites(id)
+
+);
+
+
+INSERT INTO roles (name)
+VALUES ('manager');
+
+INSERT INTO roles (name)
+VALUES ('worker');
+
+
+INSERT INTO sites (name,address)
+VALUES ('golda meir','golda meir 3 tel aviv');
+
+INSERT INTO sites (name,address)
+VALUES ('moshe sharet','moshe sharet 55 ramat gan');
+
+INSERT INTO workers (name,phone,roles_id,site_id)
+VALUES ('moshe choen','0527364483',1,1);
+
+INSERT INTO workers (name,phone,roles_id,site_id)
+VALUES ('avi choen','0527325483',1,2);
+
+INSERT INTO workers (name,phone,roles_id,site_id)
+VALUES ('moshe levi','0527312483',2,1);
+INSERT INTO workers (name,phone,roles_id,site_id)
+VALUES ('baroch choen','0527334483',2,1);
+INSERT INTO workers (name,phone,roles_id,site_id)
+VALUES ('yosi goldshtan','0523524483',2,1);
+
+INSERT INTO workers (name,phone,roles_id,site_id)
+VALUES ('lili segev','0527364483',2,2);
+INSERT INTO workers (name,phone,roles_id,site_id)
+VALUES ('yoni choen','0521673483',2,2);
+INSERT INTO workers (name,phone,roles_id,site_id)
+VALUES ('gabi choen','0522744483',2,2);
+INSERT INTO workers (name,phone,roles_id,site_id)
+VALUES ('gabi levi','0522734583',2,2);
+
+b.
+
+CREATE OR REPLACE FUNCTION list_of_workers_with_all_details( )
+returns TABLE(id int,name text, phone text, salary int, site text,role text)
+ AS
+    $$
+    BEGIN
+        RETURN QUERY
+        select w.id,w.name, w.phone, w.salary, s.name, r.name
+        from workers w join roles r on r.id = w.roles_id
+        join sites s on w.site_id = s.id;
+    END;
+$$ LANGUAGE plpgsql;
+
+
+c.
+
+CREATE OR REPLACE FUNCTION site_with_max_workers( )
+RETURNS TABLE(site_name text)
+
+ AS
+    $$
+    BEGIN
+        RETURN QUERY
+        with sumOfWorkerPerSite as (select s.name, count(w.id) as numOfWorkers
+        from workers w join sites s on w.site_id = s.id group by (s.name))
+        select name from sumOfWorkerPerSite
+        where numOfWorkers=(select max(numOfWorkers) from sumOfWorkerPerSite);
+
+    END;
+$$ LANGUAGE plpgsql;
+
+d.
+
+CREATE OR REPLACE FUNCTION list_of_workers_from_given_site( site_name text)
+returns TABLE(id int,name text, phone text, salary int, site text,role text)
+ AS
+    $$
+    BEGIN
+        RETURN QUERY
+        select w.id,w.name, w.phone, w.salary, s.name, r.name
+        from workers w join roles r on r.id = w.roles_id
+        join sites s on w.site_id = s.id where s.name like site_name ;
+    END;
+$$ LANGUAGE plpgsql;
+
+e.
+
+
+CREATE FUNCTION update_salary() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+    declare
+    BEGIN
+        FOR i IN 1..(select count(*) from workers)
+            loop
+                IF (select roles_id from workers where id=i)=1 THEN
+            update workers set salary=10000 where id=i;
+
+        ELSE
+           update workers set salary=(SELECT (random()*(10000-5000)+5000)::int) where id=i;
+
+        END IF;
+
+            end loop;
+    END;
+$$;
+
+f.
+
+CREATE FUNCTION AvgSalaryForRoleId(RoleId integer)
+ RETURNS table(avg float)
+    LANGUAGE plpgsql
+    AS $$
+    declare
+    BEGIN
+        RETURN QUERY
+        with workerWithRoleId as(select * from workers where roles_id=RoleId)
+        select  cast (avg(salary) as float) from workerWithRoleId;
+    END;
+$$;
+
+
+
+g.
+
+CREATE FUNCTION AvgWorkers() RETURNS float
+    LANGUAGE plpgsql
+    AS $$
+    declare
+        sumWorkers float:=(select  count(id) from workers);
+        sumSites float:=(select count(id) from sites );
+
+    BEGIN
+
+        return  sumWorkers/sumSites;
+
+        END;
+$$;
+h.
+drop function moveworkers(sitesid integer)
+CREATE FUNCTION MoveWorkers(sitesId int ) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+    declare
+        minId int:=(select min(id) from sites );
+        maxId int:=(select  max(id) from sites );
+        chosenId int:=(random()*(maxId-minId)+minId);
+
+    BEGIN
+        /* we choose new id until we get id that doesn't equal to sitesId  or empty
+           ( we get id from range- maybe we delete site and than his id will bs missing
+         */
+
+        while not (EXISTS (select * from sites where id=chosenId )) or chosenId=sitesId loop
+        chosenId =(random()*(maxId-minId)+minId);
+         end loop;
+        update workers set site_id=chosenId where site_id=sitesId;
+        delete from sites where id=sitesId;
+
+    END;$$;
+	
+	
+i.
+
+CREATE FUNCTION add500ToSalary() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+    declare
+    BEGIN
+        FOR i IN 1..(select count(*) from workers)
+        loop
+        update workers set salary=(SELECT salary from workers where id =i)+500 where id=i;
+
+
+            end loop;
+    END;
+$$;
+
+
+
+
+
+
+
+part e 
+
+
+a.
+
+
+
+CREATE TABLE generes (
+	id  SERIAL PRIMARY KEY   ,
+	name TEXT
+);
+
+CREATE TABLE actors (
+	id  SERIAL PRIMARY KEY   ,
+	name TEXT,
+	birth_date date
+);
+CREATE TABLE movies (
+	id  SERIAL PRIMARY KEY   ,
+	name TEXT,
+	release_date date,
+	genre_id bigint,
+    FOREIGN KEY (genre_id) REFERENCES generes(id)
+);
+
+CREATE TABLE movies_actors (
+	id  SERIAL PRIMARY KEY   ,
+	movie_id bigint,
+	actor_id bigint,
+	unique (movie_id,actor_id),
+    FOREIGN KEY (movie_id) REFERENCES movies(id),
+    FOREIGN KEY (actor_id) REFERENCES actors(id)
+
+);
+
+insert  into generes (name) values ('action');
+insert  into generes (name) values ('drama');
+insert  into generes (name) values ('romance');
+
+insert  into actors (name,birth_date) values ('oshry choen','13.04.1990');
+insert  into actors (name,birth_date) values ('brad pit','13.04.1980');
+insert  into actors (name,birth_date) values ('julia robert','13.04.1978');
+
+insert into movies (name, release_date, genre_id) values ('a','13.06.1976',1);
+insert into movies (name, release_date, genre_id) values ('b','13.12.1996',1);
+insert into movies (name, release_date, genre_id) values ('c','22.03.1986',1);
+insert into movies (name, release_date, genre_id) values ('d','22.03.2000',2);
+insert into movies (name, release_date, genre_id) values ('e','22.03.2012',2);
+insert into movies (name, release_date, genre_id) values ('f','22.03.2001',2);
+insert into movies (name, release_date, genre_id) values ('g','22.03.2016',3);
+insert into movies (name, release_date, genre_id) values ('gg','20.03.2016',3);
+
+insert into movies (name, release_date, genre_id) values ('h','22.03.2020',3);
+insert into movies (name, release_date, genre_id) values ('j','22.05.2020',3);
+
+
+insert  into  movies_actors (actor_id, movie_id) values (1,1);
+insert  into  movies_actors (actor_id, movie_id) values (1,2);
+insert  into  movies_actors (actor_id, movie_id) values (2,3);
+insert  into  movies_actors (actor_id, movie_id) values (2,4);
+insert  into  movies_actors (actor_id, movie_id) values (3,5);
+insert  into  movies_actors (actor_id, movie_id) values (3,6);
+insert  into  movies_actors (actor_id, movie_id) values (3,8);
+insert  into  movies_actors (actor_id, movie_id) values (3,3);
+insert  into  movies_actors (actor_id, movie_id) values (2,8);
+
+
+
+
+with  actors_with_movies as(select m.name as movis_name,m.id,m.release_date,a.birth_date
+from actors a join movies_actors ma on a.id = ma.actor_id join movies m on ma.movie_id = m.id)
+select movis_name,id,release_date from actors_with_movies
+ where birth_date < CAST('1.1.1972' as date) group by movis_name,id,release_date ;
+
+ 
+with temp as (select  a.name as actor_name,a.birth_date ,a.id,
+                     COUNT(movie_id) OVER(PARTITION BY a.name) AS count_of_movies
+from actors a join movies_actors ma on a.id = ma.actor_id join movies m on ma.movie_id = m.id)
+select actor_name,birth_date,id from temp group by  actor_name,birth_date,id , count_of_movies
+having count_of_movies=(select max(count_of_movies) from temp);
+
+with temp as(
+with moviesTableOrderByRelease_date as (select * from movies order by release_date)
+select  name, release_date,id,
+       ROW_NUMBER () OVER(PARTITION BY(select substr(cast(release_date AS text), 1,4))) as placeInTheYear
+from moviesTableOrderByRelease_date)
+select name, release_date,id from temp where placeInTheYear=1

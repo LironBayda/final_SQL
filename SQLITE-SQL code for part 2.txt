@@ -1,0 +1,52 @@
+a.
+
+CREATE TABLE Tests (
+	ID INTEGER  PRIMARY KEY AUTOINCREMENT,
+	Car_ID INTEGER,
+	IsPassed  INTEGER ,-- bool SQLITE doesnt have bool type instead we should use intger with 0 for false and 1 for true--
+	Tests_Date TEXT,
+	 FOREIGN KEY(Car_ID) REFERENCES Cars(ID)
+);
+
+CREATE TABLE Cars (
+	ID INTEGER  PRIMARY KEY AUTOINCREMENT,
+	Manufacturer TEXT,
+	Model TEXT,
+	Year  INTEGER 
+
+);
+CREATE TABLE Tests (
+	ID INTEGER  PRIMARY KEY AUTOINCREMENT,
+	Car_ID INTEGER,
+	IsPassed  INTEGER ,-- bool SQLITE doesnt have bool type instead we should use intger with 0 for false and 1 for true--
+	Tests_Date TEXT,
+	 FOREIGN KEY(Car_ID) REFERENCES Cars(ID)
+);
+
+
+INSERT INTO  Cars (Manufacturer,Model,Year) VALUES ("HONDA","A",1967);
+INSERT INTO Cars (Manufacturer,Model,Year) VALUES ("HONDA","AGNB",1945);
+INSERT INTO Cars (Manufacturer,Model,Year) VALUES ("HONDA","ANGN",1998);
+INSERT INTO Cars (Manufacturer,Model,Year) VALUES ("PEJO","ANGFN",1945);
+INSERT INTO Cars (Manufacturer,Model,Year) VALUES ("YONDAI","AGFNFG",1999);
+INSERT INTO Cars (Manufacturer,Model,Year) VALUES ("YONDAI","VBFGA",2000);
+INSERT INTO Cars (Manufacturer,Model,Year) VALUES ("HONDA","AGFHFG",2009);
+
+INSERT INTO  Tests (Car_ID,IsPassed,Tests_Date) VALUES (1,0,"12.08.1990");
+INSERT INTO  Tests (Car_ID,IsPassed,Tests_Date) VALUES (2,0,"12.08.1990");
+INSERT INTO  Tests (Car_ID,IsPassed,Tests_Date) VALUES (3,1,"12.08.1990");
+INSERT INTO  Tests (Car_ID,IsPassed,Tests_Date) VALUES (4,1,"12.08.1990");
+INSERT INTO  Tests (Car_ID,IsPassed,Tests_Date) VALUES (5,0,"12.08.1990");
+INSERT INTO  Tests (Car_ID,IsPassed,Tests_Date) VALUES (6,1,"12.08.1990");
+INSERT INTO  Tests (Car_ID,IsPassed,Tests_Date) VALUES (6,0,"12.08.1920");
+INSERT INTO  Tests (Car_ID,IsPassed,Tests_Date) VALUES (1,0,"12.08.1970");
+INSERT INTO  Tests (Car_ID,IsPassed,Tests_Date) VALUES (1,1,"12.08.1940");
+INSERT INTO  Tests (Car_ID,IsPassed,Tests_Date) VALUES (5,0,"12.12.1990");
+INSERT INTO  Tests (Car_ID,IsPassed,Tests_Date) VALUES (1,1,"12.09.1990");
+INSERT INTO  Tests (Car_ID,IsPassed,Tests_Date) VALUES (3,1,"12.08.1960");
+INSERT INTO  Tests (Car_ID,IsPassed,Tests_Date) VALUES (3,1,"12.04.1940");
+INSERT INTO  Tests (Car_ID,IsPassed,Tests_Date) VALUES (6,1,"12.05.1950");
+INSERT INTO  Tests (Car_ID,IsPassed,Tests_Date) VALUES (2,0,"12.05.1995");
+INSERT INTO  Tests (Car_ID,IsPassed,Tests_Date) VALUES (1,0,"12.01.1991");
+
+

@@ -1,0 +1,60 @@
+use finalSQL
+
+CREATE TABLE Categories (
+    ID bigint   IDENTITY    PRIMARY KEY,
+    CategoryName VARCHAR(50) ,
+   
+   
+);
+
+CREATE TABLE Stores (
+    ID bigint   IDENTITY    PRIMARY KEY,
+    StoresName VARCHAR(50) ,
+    Store_Floor int,
+    category_ID bigint foreign key references Categories (ID),
+   
+);
+
+
+INSERT Categories ([CategoryName]) VALUES ('Food');
+INSERT Categories ([CategoryName]) VALUES ('Clothes');
+INSERT Categories ([CategoryName]) VALUES ('Home');
+
+INSERT [dbo].[Stores] ([StoresName],[Store_Floor],[category_ID]) VALUES ('FoxHome',2,3);
+INSERT [dbo].[Stores] ([StoresName],[Store_Floor],[category_ID]) VALUES ('H&M',1,2);
+INSERT [dbo].[Stores] ([StoresName],[Store_Floor],[category_ID]) VALUES ('Fox',1,2);
+INSERT [dbo].[Stores] ([StoresName],[Store_Floor],[category_ID]) VALUES ('shepodi zepora',1,1);
+INSERT [dbo].[Stores] ([StoresName],[Store_Floor],[category_ID]) VALUES ('burger king',1,1);
+INSERT [dbo].[Stores] ([StoresName],[Store_Floor],[category_ID]) VALUES ('BBB',2,1);
+
+entity frame work
+
+use finalSQL
+
+CREATE TABLE Districts (
+    ID bigint   IDENTITY    PRIMARY KEY,
+    Name text ,
+	Population int
+   
+   
+);
+
+CREATE TABLE Cities (
+    ID bigint   IDENTITY    PRIMARY KEY,
+    Name text ,
+    District_ID bigint foreign key references Districts (ID),
+	Mayor text,
+	Population int
+   
+);
+
+
+INSERT [dbo].[Districts] ([Name],[Population]) VALUES ('north',134422);
+INSERT [dbo].[Districts] ([Name],[Population]) VALUES ('south',139922);
+INSERT [dbo].[Districts] ([Name],[Population]) VALUES ('center',13442200);
+
+INSERT [dbo].Cities ([Name],[District_ID],[Mayor],[Population]) VALUES ('tel aviv',3,'ron holday',9144);
+INSERT [dbo].Cities ([Name],[District_ID],[Mayor],[Population]) VALUES ('reshon lezion',3,'meir nizan',5344);
+INSERT [dbo].Cities ([Name],[District_ID],[Mayor],[Population]) VALUES ('ber sheva',2,'a',1344);
+INSERT [dbo].Cities ([Name],[District_ID],[Mayor],[Population]) VALUES ('acho',1,'b',344);
+

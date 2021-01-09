@@ -1,0 +1,7 @@
+{
+  "PostgresSQLConfig": {
+    "ConnectionString": "Host=localhost;Username=postgres;Password=Admin;Database=postgres ",
+    "AllowDBWrite": "TRUE",
+    "AppName": "IMDB"
+  }
+}

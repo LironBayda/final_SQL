@@ -1,0 +1,16 @@
+C:\Users\liron\Source\Repos\finalSQL\Entity_Framework\bin\Debug\Entity_Framework.exe.config
+C:\Users\liron\Source\Repos\finalSQL\Entity_Framework\bin\Debug\Entity_Framework.exe
+C:\Users\liron\Source\Repos\finalSQL\Entity_Framework\bin\Debug\Entity_Framework.pdb
+C:\Users\liron\Source\Repos\finalSQL\Entity_Framework\bin\Debug\EntityFramework.dll
+C:\Users\liron\Source\Repos\finalSQL\Entity_Framework\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\liron\Source\Repos\finalSQL\Entity_Framework\bin\Debug\log4net.dll
+C:\Users\liron\Source\Repos\finalSQL\Entity_Framework\bin\Debug\Newtonsoft.Json.dll
+C:\Users\liron\Source\Repos\finalSQL\Entity_Framework\bin\Debug\EntityFramework.xml
+C:\Users\liron\Source\Repos\finalSQL\Entity_Framework\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\liron\Source\Repos\finalSQL\Entity_Framework\bin\Debug\log4net.xml
+C:\Users\liron\Source\Repos\finalSQL\Entity_Framework\bin\Debug\Newtonsoft.Json.xml
+C:\Users\liron\Source\Repos\finalSQL\Entity_Framework\obj\Debug\Entity_Framework.csprojAssemblyReference.cache
+C:\Users\liron\Source\Repos\finalSQL\Entity_Framework\obj\Debug\Entity_Framework.csproj.CoreCompileInputs.cache
+C:\Users\liron\Source\Repos\finalSQL\Entity_Framework\obj\Debug\Entity_Framework.csproj.CopyComplete
+C:\Users\liron\Source\Repos\finalSQL\Entity_Framework\obj\Debug\Entity_Framework.exe
+C:\Users\liron\Source\Repos\finalSQL\Entity_Framework\obj\Debug\Entity_Framework.pdb

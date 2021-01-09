@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="finalSQLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="District_ID" Type="Int64" />
+    <Property Name="Mayor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Population" Type="Int32" />
+    <NavigationProperty Name="District" Relationship="Self.FK__Cities__District__2B3F6F97" FromRole="Cities" ToRole="Districts" />
+  </EntityType>
+  <EntityType Name="District">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Population" Type="Int32" />
+    <NavigationProperty Name="Cities" Relationship="Self.FK__Cities__District__2B3F6F97" FromRole="Districts" ToRole="Cities" />
+  </EntityType>
+  <Association Name="FK__Cities__District__2B3F6F97">
+    <End Role="Districts" Type="Self.District" Multiplicity="0..1" />
+    <End Role="Cities" Type="Self.City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Districts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cities">
+        <PropertyRef Name="District_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="finalSQLEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cities" EntityType="Self.City" />
+    <EntitySet Name="Districts" EntityType="Self.District" />
+    <AssociationSet Name="FK__Cities__District__2B3F6F97" Association="Self.FK__Cities__District__2B3F6F97">
+      <End Role="Districts" EntitySet="Districts" />
+      <End Role="Cities" EntitySet="Cities" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

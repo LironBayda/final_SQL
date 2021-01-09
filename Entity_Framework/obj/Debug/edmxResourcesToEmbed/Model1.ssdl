@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="finalSQLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Cities">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="text" />
+    <Property Name="District_ID" Type="bigint" />
+    <Property Name="Mayor" Type="text" />
+    <Property Name="Population" Type="int" />
+  </EntityType>
+  <EntityType Name="Districts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="text" />
+    <Property Name="Population" Type="int" />
+  </EntityType>
+  <Association Name="FK__Cities__District__2B3F6F97">
+    <End Role="Districts" Type="Self.Districts" Multiplicity="0..1" />
+    <End Role="Cities" Type="Self.Cities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Districts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cities">
+        <PropertyRef Name="District_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="finalSQLModelStoreContainer">
+    <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Districts" EntityType="Self.Districts" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Cities__District__2B3F6F97" Association="Self.FK__Cities__District__2B3F6F97">
+      <End Role="Districts" EntitySet="Districts" />
+      <End Role="Cities" EntitySet="Cities" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,7 @@
+{
+  "SQLiteConfig": {
+    "ConnectionString": "Data Source=C:\\Users\\liron\\Desktop\\finalSQL\\SqLite\\final_exercise.db; ",
+    "AllowDBWrite": "TRUE",
+    "AppName": "cars"
+  }
+}

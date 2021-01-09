@@ -1,0 +1,12 @@
+C:\Users\liron\Source\Repos\finalSQL\SQL_SERVER\bin\Debug\SQL_SERVER.exe.config
+C:\Users\liron\Source\Repos\finalSQL\SQL_SERVER\bin\Debug\SQL_SERVER.exe
+C:\Users\liron\Source\Repos\finalSQL\SQL_SERVER\bin\Debug\SQL_SERVER.pdb
+C:\Users\liron\Source\Repos\finalSQL\SQL_SERVER\bin\Debug\log4net.dll
+C:\Users\liron\Source\Repos\finalSQL\SQL_SERVER\bin\Debug\Newtonsoft.Json.dll
+C:\Users\liron\Source\Repos\finalSQL\SQL_SERVER\bin\Debug\log4net.xml
+C:\Users\liron\Source\Repos\finalSQL\SQL_SERVER\bin\Debug\Newtonsoft.Json.xml
+C:\Users\liron\Source\Repos\finalSQL\SQL_SERVER\obj\Debug\SQL_SERVER.csprojAssemblyReference.cache
+C:\Users\liron\Source\Repos\finalSQL\SQL_SERVER\obj\Debug\SQL_SERVER.csproj.CoreCompileInputs.cache
+C:\Users\liron\Source\Repos\finalSQL\SQL_SERVER\obj\Debug\SQL_SERVER.csproj.CopyComplete
+C:\Users\liron\Source\Repos\finalSQL\SQL_SERVER\obj\Debug\SQL_SERVER.exe
+C:\Users\liron\Source\Repos\finalSQL\SQL_SERVER\obj\Debug\SQL_SERVER.pdb

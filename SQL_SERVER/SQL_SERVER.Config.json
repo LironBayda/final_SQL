@@ -1,0 +1,7 @@
+﻿{
+  "SQLSEVERConfig": {
+    "ConnectionString": "Initial Catalog=finalSQL;Integrated Security=True",
+    "AllowDBWrite": "TRUE",
+    "AppName": "Stores"
+  }
+}

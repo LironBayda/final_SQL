@@ -1,13 +1,4 @@
 a.
-
-CREATE TABLE Tests (
-	ID INTEGER  PRIMARY KEY AUTOINCREMENT,
-	Car_ID INTEGER,
-	IsPassed  INTEGER ,-- bool SQLITE doesnt have bool type instead we should use intger with 0 for false and 1 for true--
-	Tests_Date TEXT,
-	 FOREIGN KEY(Car_ID) REFERENCES Cars(ID)
-);
-
 CREATE TABLE Cars (
 	ID INTEGER  PRIMARY KEY AUTOINCREMENT,
 	Manufacturer TEXT,
@@ -18,7 +9,7 @@ CREATE TABLE Cars (
 CREATE TABLE Tests (
 	ID INTEGER  PRIMARY KEY AUTOINCREMENT,
 	Car_ID INTEGER,
-	IsPassed  INTEGER ,-- bool SQLITE doesnt have bool type instead we should use intger with 0 for false and 1 for true--
+	IsPassed  INTEGER ,  0 for false and 1 for true--
 	Tests_Date TEXT,
 	 FOREIGN KEY(Car_ID) REFERENCES Cars(ID)
 );
